@@ -70,8 +70,7 @@ def run():
 
     num_train_steps = int(len(df_train) / config.TRAIN_BATCH_SIZE * config.EPOCHS)
     #we can experiment with differnet lr
-    # with pretrained models, A common practice is to make the 
-    # initial learning rate 10 times smaller than the one used for scratch training.
+    # with pretrained models, 
     optimizer = AdamW(optimizer_parameters, lr=3e-5)
     scheduler = get_linear_schedule_with_warmup(
     optimizer,
@@ -82,7 +81,7 @@ def run():
     best_accuracy = 0
     for epoch in range(config.EPOCHS):
         engine.train_fn(train_data_loader, model, optimizer, device, scheduler)
-        outputs, targets = engine.valid_fn(valid_data_loader, model, device)
+        outputs, targets = engine.eval_fn(valid_data_loader, model, device)
         outputs = np.array(outputs) >= 0.5
 
         # now calculate accuracy metrics

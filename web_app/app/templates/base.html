@@ -1,0 +1,18 @@
+<!--Base template with nav bar-->
+
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - vlog</title> 
+        {% else %}
+        <title>This should be a title</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            My vlog: <a href="/index">Home</a>
+        </div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
