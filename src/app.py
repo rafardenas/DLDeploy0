@@ -39,7 +39,7 @@ def sentence_prediction(sentence):
     ids = torch.tensor(ids, dtype=torch.long).unsqueeze(0)
     mask =  torch.tensor(mask, dtype=torch.long).unsqueeze(0)
     token_type_ids = torch.tensor(token_type_ids, dtype=torch.long).unsqueeze(0)
-    print("shape with unsqueeze:", token_type_ids.shape)
+    #print("shape with unsqueeze:", token_type_ids.shape)
 
 
     ids = ids.to(DEVICE,dtype=torch.long)

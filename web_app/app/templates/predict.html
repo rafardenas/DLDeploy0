@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Enter query to predict its sentiment</h1>
+    <form action="" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.sentence.label }}<br>
+            {{ form.sentence(size=32) }}<br>
+            {% for error in form.sentence.errors %}
+            <span style="color:chartreuse;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+{% endblock %}

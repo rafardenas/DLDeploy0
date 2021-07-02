@@ -1,7 +1,7 @@
 import transformers
 import os
 import sys
-#sys.path.append(os.getcwd())
+sys.path.append(os.getcwd())
 
 
 MAX_LEN = 64

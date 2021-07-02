@@ -1,5 +1,8 @@
+import os
+import sys
 import transformers
-import config
+sys.path.append(os.getcwd())
+from src import config
 import torch.nn as nn
 
 class BERTBaseUncased(nn.Module):

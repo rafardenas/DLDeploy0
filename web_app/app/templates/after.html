@@ -1,0 +1,13 @@
+
+{% extends "base.html" %}
+
+
+{% block content %}
+    <center>
+        <h1>Prediction</h1>
+        <h2>{{ data["Query"] }}</h2>
+        <p>Probability of being possitive: {{ data["positive"] }}</p>
+        <p>Probability of being negative: {{ data["negative"] }}</p>
+    </center>
+{% endblock %}
+

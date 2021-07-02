@@ -57,7 +57,6 @@ def eval_fn(data_loader, model, device):
             mask = mask.to(device,dtype=torch.long)
             targets = targets.to(device,dtype=torch.float)
 
-            optimizer.zero_grad()
             outputs = model(
                 ids=ids, 
                 mask=mask, 
@@ -65,3 +64,4 @@ def eval_fn(data_loader, model, device):
             )
             fin_targets.extend(targets.cpu().detach().numpy().tolist())
             fin_outputs.extend(torch.sigmoid(outputs).cpu().detach().numpy().tolist())
+    return fin_outputs, fin_targets
