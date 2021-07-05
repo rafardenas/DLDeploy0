@@ -1,15 +1,14 @@
 import os 
 import sys
-sys.path.append(os.getcwd())
+#sys.path.append(os.getcwd())
 
 from flask import render_template, flash, redirect, url_for 
-from app import app
-from app.forms import LoginForm, pred_form
-#from src import config
-from . import config
+from web_app.app import app
+from web_app.app.forms import LoginForm, pred_form
+from src import config
 import torch
 import transformers
-from ...src.model import BERTBaseUncased
+from src.model import BERTBaseUncased
 
 # routes are defined with the following decorator
 # in flask, the routes/links are defined with python functions
