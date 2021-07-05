@@ -1,0 +1,15 @@
+Tweaks:
+
+Instructions to kill the server if the terminal is not there anymore.
+https://stackoverflow.com/questions/19071512/socket-error-errno-48-address-already-in-use
+
+Added: sys.path.append(os.getcwd()) to first.py so that '$ flask shell' works.
+
+
+
+To do:
+
+- How to set automatically the 'FLASK_APP' env variable
+
+
+

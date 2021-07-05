@@ -4,7 +4,7 @@ import os
 import sys
 #sys.path.append("..") #this was the key for everything
 #sys.path.append(".") #this was the key for everything
-#sys.path.append(os.getcwd())
+sys.path.append(os.getcwd())
 print(os.environ.get('FLASK_APP'))
 print(sys.path)
 
