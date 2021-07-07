@@ -16,6 +16,16 @@ To know:
 - What is the hidden tag?
 
 
+Ideas for flit_beta
+
+
+- usuarios
+- Ratings de viajes de brokers
+- register in front of the page
+- register to see the number of the broker
+- feedback del cliente (precio final)
+- 
+
 
 
 
