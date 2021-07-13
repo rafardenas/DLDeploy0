@@ -2,6 +2,7 @@ import transformers
 import os
 import sys
 sys.path.append(os.getcwd())
+sys.path.append(".") #this was the key for everything
 
 
 MAX_LEN = 64

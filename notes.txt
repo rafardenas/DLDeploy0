@@ -14,6 +14,8 @@ To do:
 To know:
 
 - What is the hidden tag?
+- When to use 'POST' and when 'GET'
+
 
 
 Ideas for flit_beta

@@ -6,7 +6,10 @@ import sys
 #sys.path.append(".") #this was the key for everything
 sys.path.append(os.getcwd())
 print(os.environ.get('FLASK_APP'))
-print(sys.path)
+#print(sys.path)
+#if os.environ['FLASK_APP'] == None:
+#    os.environ['FLASK_APP'] = "first"
+
 
 from web_app.app import app, db
 from web_app.app.models import User, Post
@@ -18,4 +21,4 @@ def make_shell_context():
 
 if __name__ == "__main__":
     app.run()
-    
+

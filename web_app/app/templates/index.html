@@ -6,8 +6,20 @@
     <h1>Sign in to see your posts</h1>
     {% else %}
     <h1>Hi, {{ current_user.username }}!</h1>
+    <form action="" method="post">
+        <p>
+            {{ form.post.label }}<br>
+            {{ form.post(cols=32, rows=4) }}<br>
+            {% for error in form.post.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
     {% for post in posts %}
-    <div><p>{{ post.author.username }} says <b>{{ post.body }}</b></p></div>
+    <p>
+        {{ post.author.username }} says <b>{{ post.body }}</b>
+    </p>
     {% endfor %}
     {% endif %}
 {% endblock %}

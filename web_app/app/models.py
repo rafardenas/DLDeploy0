@@ -7,6 +7,12 @@ from web_app.app import login
 db.metadata.clear()
 
 
+followers = db.Table('followers', 
+            db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+            db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+            )
+
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,6 +36,36 @@ class User(UserMixin, db.Model):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
 
+    followed = db.relationship(
+        'User', secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+
+    #relations table
+    def follow(self,user):
+        if not self.is_following(user):
+            self.followed.append(user)
+    
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+    
+    #The "c" is an attribute of SQLAlchemy tables that are not defined as models. 
+    #For these tables, the table columns are all exposed as sub-attributes of this "c" attribute
+
+    def is_following(self, user):
+        return self.followed.filter(followers.c.followed_id == user.id).count() > 0
+
+    def followed_posts(self):
+        followed =  Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(
+            followers.c.follower_id == self.id)     
+        own = Post.query.filter_by(user_id=self.id)  #in order to displays one's own Posts
+        return followed.union(own).order_by(Post.timestamp.desc())
+
+
+
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
@@ -42,4 +78,7 @@ class Post(db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+
+
 
