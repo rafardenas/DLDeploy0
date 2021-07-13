@@ -15,6 +15,7 @@ To know:
 
 - What is the hidden tag?
 - When to use 'POST' and when 'GET'
+- Lazy/dynamic in queries?
 
 
 
