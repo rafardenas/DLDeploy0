@@ -2,21 +2,20 @@ import os
 import sys
 #sys.path.append(os.getcwd())
 
-from flask import render_template, flash, redirect, url_for
-from flask import request
+from flask import render_template, flash, redirect, url_for, request
 from werkzeug.urls import url_parse
 from flask_migrate import Config, current 
-from web_app.app import app
+from web_app.app import app, db
 from web_app.app.forms import *
 from src import config
 import torch
 import transformers
 from src.model import BERTBaseUncased
 from flask_login import current_user, login_user, logout_user, login_required
-from web_app.app.models import * 
-from web_app.app import db
+from web_app.app.models import User, Post
 from datetime import datetime
 from web_app.config2 import Config
+from web_app.app.email import *
 
 # routes are defined with the following decorator
 # in flask, the routes/links are defined with python functions
@@ -76,7 +75,8 @@ def sentence_prediction(sentence):
 def index():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.post.data, author=current_user)
+        post = Post(body=form.post.data, user=current_user)
+        print(post)
         db.session.add(post)
         db.session.commit()
         flash("Listing is posted now!")
@@ -233,4 +233,23 @@ def explore():
 
 
 
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+            flash('Check your email for instructions to reset your password')
+            return redirect(url_for('login'))
+        else:
+            flash('No account with that email, try again')
+    return render_template('reset_password_request', title='Reset Password', form=form)
+
+
+
+        
+        
 

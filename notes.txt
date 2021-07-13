@@ -27,8 +27,21 @@ Ideas for flit_beta
 - register in front of the page
 - register to see the number of the broker
 - feedback del cliente (precio final)
-- 
+- categorias:
+    -Mudanzas
+- Pensar bien en la info que se va a poner en el thumbnail (https://listado.mercadolibre.com.mx/busco-fletes-mexico-monterrey), es la primera impresion
 
 
+Notes
 
+- export FLASK_DEBUG=1
+- Setting env variables for sending emails:
+    (venv) $ export MAIL_SERVER=smtp.googlemail.com
+    (venv) $ export MAIL_PORT=587
+    (venv) $ export MAIL_USE_TLS=1
+    (venv) $ export MAIL_USERNAME=<your-gmail-username>
+    (venv) $ export MAIL_PASSWORD=<your-gmail-password>
+    
+    Note ---> Remember that the security features in your Gmail account may prevent the application from sending emails 
+              through it unless you explicitly allow "less secure apps" access to your Gmail account.
 

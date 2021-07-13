@@ -7,7 +7,7 @@
             <a href="{{ url_for('user', username=post.user.username) }}">
                 {{ post.user.username }}       <!--should I change 'author' for 'user' due to the backref-->   
             </a>
-            says: <br> {{ post.body }} 
+            @ {{ post.timestamp.strftime("%d/%m/%y") }} says: <br> {{ post.body }} 
         </td>     
     </tr>
 </table>
