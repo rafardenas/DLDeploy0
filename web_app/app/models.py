@@ -3,7 +3,7 @@ from datetime import datetime
 from web_app.app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from web_app.app import login, app
+from web_app.app import login, app, db
 from web_app.config2 import Config
 from time import time
 import jwt
@@ -69,7 +69,7 @@ class User(UserMixin, db.Model):
 
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode({'reset_password':self.id, 'exp':time() + expires_in}, Config.SECRET_KEY, algorithm='HS256')
-    
+
     @staticmethod
     def verify_reset_password_token(token):
         try:
@@ -77,9 +77,6 @@ class User(UserMixin, db.Model):
         except:
             return
         return User.query.get(id)
-
-
-
 
 
 class Post(db.Model):

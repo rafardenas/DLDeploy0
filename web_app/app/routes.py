@@ -15,7 +15,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from web_app.app.models import User, Post
 from datetime import datetime
 from web_app.config2 import Config
-from web_app.app.email import *
+from web_app.app.email_mod import *
 
 # routes are defined with the following decorator
 # in flask, the routes/links are defined with python functions
@@ -246,10 +246,25 @@ def reset_password_request():
             return redirect(url_for('login'))
         else:
             flash('No account with that email, try again')
-    return render_template('reset_password_request', title='Reset Password', form=form)
+    return render_template('reset_password_request.html', title='Reset Password', form=form)
 
 
 
-        
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been successfully reset')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html', form=form)
+
+
         
 
