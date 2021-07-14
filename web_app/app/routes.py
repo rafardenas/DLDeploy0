@@ -76,7 +76,6 @@ def index():
     form = PostForm()
     if form.validate_on_submit():
         post = Post(body=form.post.data, user=current_user)
-        print(post)
         db.session.add(post)
         db.session.commit()
         flash("Listing is posted now!")
@@ -102,7 +101,6 @@ def login():
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
-        print('Next page argument is:', next_page)
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page) 
@@ -240,6 +238,7 @@ def reset_password_request():
     form = ResetPasswordRequestForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        flash(user.username)
         if user:
             send_password_reset_email(user)
             flash('Check your email for instructions to reset your password')

@@ -19,7 +19,7 @@ def send_email(subject, sender, recipients, text_body, html_body):
 
     with smtplib.SMTP("smtp.googlemail.com", port=587) as smtp:
         smtp.starttls(context=context)
-        smtp.login(msg["From"], "Password")
+        smtp.login(msg["From"], "password")
         smtp.send_message(msg)
 """
 def send_password_reset_email(user):
@@ -33,7 +33,7 @@ def send_password_reset_email(user):
 
 def send_password_reset_email(user):
     token = user.get_reset_password_token()
-    send_email('[Microblog] Reset Your Password',
+    send_email('[Flit] Reset Your Password',
                sender=Config.ADMINS[0],
                recipients=[user.email],
                text_body=render_template('email_folder/reset_password.txt',
